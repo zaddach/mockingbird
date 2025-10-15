@@ -1,0 +1,6 @@
+# Example configuration for GDI functions
+api:
+  "Windows.Win32.Foundation":
+    - CloseHandle
+  "Windows.Win32.Storage.FileSystem":
+    - CreateFileW

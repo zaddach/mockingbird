@@ -1,0 +1,9 @@
+/target
+/Cargo.lock
+
+/IWin32Api.h
+/Win32Api.h
+/MockWin32Api.h
+/Win32Api.cpp
+/MockWin32Api.cpp
+/Windows.Win32.winmd
