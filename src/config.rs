@@ -1,9 +1,19 @@
-use std::{collections::HashMap, path::Path};
+use std::{collections::HashMap, path::{Path, PathBuf}};
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
 pub struct Config {
     pub api: HashMap<String, Vec<String>>,
+    #[serde(default)]
+    pub type_aliases: HashMap<String, String>,
+    /// Paths for template files.
+    /// Paths are relative to the config file.
+    pub templates: Vec<String>,
+    pub output_dir: Option<PathBuf>,
+    /// Path for include files.
+    /// Paths are relative to the config file.
+    #[serde(default)]
+    pub includes: Vec<String>,
 }
 
 impl Config {

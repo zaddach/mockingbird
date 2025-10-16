@@ -1,0 +1,22 @@
+# Example configuration for GDI functions
+api:
+  "Windows.Win32.Foundation":
+    - CloseHandle
+  "Windows.Win32.Storage.FileSystem":
+    - CreateFileW
+
+type_aliases:
+  "FILE_CREATION_DISPOSITION": "uint32_t"
+  "FILE_FLAGS_AND_ATTRIBUTES": "uint32_t"
+  "FILE_SHARE_MODE": "uint32_t"
+  "WIN32_ERROR": "uint32_t"
+
+templates:
+  - "templates/IWin32Api.hpp"
+  - "templates/Win32Api.hpp"
+  - "templates/MockWin32Api.hpp"
+  - "templates/MockWin32Api.cpp"
+  - "templates/Win32Api.cpp"
+
+includes:
+  - "templates/macros.hpp"
