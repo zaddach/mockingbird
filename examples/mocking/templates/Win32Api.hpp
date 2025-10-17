@@ -1,4 +1,4 @@
-{% import "templates/macros.hpp" as macros  %}
+{% import "macros.hpp" as macros  %}
 // This file is generated. Do not edit.
 #pragma once
 

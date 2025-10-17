@@ -10,10 +10,11 @@ pub struct Config {
     /// Paths are relative to the config file.
     pub templates: Vec<String>,
     pub output_dir: Option<PathBuf>,
-    /// Path for include files.
-    /// Paths are relative to the config file.
+    /// Include paths and a list of files they contain.
+    /// Include paths are relative to the config file path.
+    /// Include files may be nested paths inside the include directory.
     #[serde(default)]
-    pub includes: Vec<String>,
+    pub includes: HashMap<String, Vec<String>>,
 }
 
 impl Config {

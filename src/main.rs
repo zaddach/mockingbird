@@ -46,9 +46,11 @@ fn main() {
     let mut tera = tera::Tera::default();
     let mut files = Vec::new();
 
-    for include_path in & config.includes {
-        let path = conf_dir.join(include_path);
-        tera.add_template_file(& path, Some(include_path)).unwrap();
+    for (include_base, include_files) in & config.includes {
+        for include_file in include_files {
+            let path = conf_dir.join(include_base).join(include_file);
+            tera.add_template_file(& path, Some(include_file)).unwrap();
+        }
     }
 
     for template in & config.templates {

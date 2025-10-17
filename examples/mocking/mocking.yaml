@@ -19,4 +19,5 @@ templates:
   - "templates/Win32Api.cpp"
 
 includes:
-  - "templates/macros.hpp"
+  "../common":
+    - "macros.hpp"
