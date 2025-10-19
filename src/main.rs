@@ -46,6 +46,7 @@ fn main() {
     let mut tera = tera::Tera::default();
     let mut files = Vec::new();
 
+    // Add template includes to the tera engine
     for (include_base, include_files) in & config.includes {
         for include_file in include_files {
             let path = conf_dir.join(include_base).join(include_file);
@@ -53,12 +54,14 @@ fn main() {
         }
     }
 
+    // Add templates to the tera engine
     for template in & config.templates {
         let path = conf_dir.join(template);
         tera.add_template_file(& path, Some(template)).unwrap();
         files.push(template);
     }
 
+    // Get the functions from the Win32 metadata
     let mut functions = Vec::new();
     let namespaces = config.api.iter().map(|(namespace, functions)| (index.expect(namespace, "Apis"), functions.clone())).collect::<Vec<_>>();
     for (namespace, function_names) in & namespaces {
@@ -67,16 +70,19 @@ fn main() {
     }
     let functions = functions.into_iter().map(MethodDefWrapper).collect::<Vec<_>>();
 
+    // Store all the data that we need to access in templates in a Tera context
     let mut context = tera::Context::new();
     context.insert("functions", &functions);
     context.insert("type_aliases", &config.type_aliases);
 
+    // Register the type constants so that we can use type names in the template code
     let type_map = TYPE_VARIANTS.iter().cloned().collect::<std::collections::HashMap<_, _>>();
     context.insert("TYPES", &type_map);
 
     let cur_dir = std::env::current_dir().unwrap();
     let output_dir = config.output_dir.as_ref().unwrap_or(& cur_dir);
 
+    // Process the templates
     for file in & files {
         let output = tera.render(file, &context).unwrap();
         let output_file_path = output_dir.join(Path::new(file).file_name().unwrap());
